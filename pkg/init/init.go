@@ -24,6 +24,7 @@ import (
 	u "net/url"
 	"os"
 	"path/filepath"
+	"strings"
 	"syscall"
 
 	config "github.com/xx4h/hctl/pkg/config"
@@ -89,8 +90,8 @@ func getURL() string {
 		return getURL()
 	}
 	up, err := u.Parse(url)
-	if err != nil || up.Scheme == "" || up.Host == "" {
-		fmt.Printf("Not a valid URL: %s\n", url)
+	if err != nil || up.Scheme == "" || up.Host == "" || !strings.HasSuffix(up.Path, "/api") {
+		fmt.Printf("Not a valid API URL: %s\n", url)
 		return getURL()
 	}
 	return url
