@@ -24,6 +24,7 @@ import (
 	u "net/url"
 	"os"
 	"path/filepath"
+	"strings"
 	"syscall"
 
 	config "github.com/xx4h/hctl/pkg/config"
@@ -102,7 +103,7 @@ func getHubType() string {
 
 func isURL(url string) bool {
 	up, err := u.Parse(url)
-	if err != nil || up.Scheme == "" || up.Host == "" {
+	if err != nil || up.Scheme == "" || up.Host == "" || !strings.HasSuffix(up.Path, "/api") {
 		return false
 	}
 	return true
